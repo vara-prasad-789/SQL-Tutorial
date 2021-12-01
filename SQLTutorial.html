@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>SQL</title>
+	<style>
+		tr,td{border: 1px solid #123456;
+			padding: 10px;}
+	</style>
+
+</head>
+<body>
+	<h1>SQL Tutorial</h1>
+	<p>SQL is a standard language for storing, manipulating and retrieving data in databases.<br>
+	Our SQL tutorial will teach you how to use SQL in: MySQL, SQL Server, MS Access, Oracle, Sybase, Informix, Postgres, and other database systems.</p>
+	<p>SQL is a standard language for accessing and manipulating databases.</p>
+	<h3>What is SQL?</h3>
+	<p>SQL stands for Structured Query Language<br>
+	SQL lets you access and manipulate databases<br>
+	SQL became a standard of the American National Standards Institute (ANSI) in 1986, and of the International Organization for Standardization (ISO) in 1987
+	</p>
+	<h3>What Can SQL do?</h3>
+	<p>SQL can execute queries against a database<br>
+	SQL can retrieve data from a database<br>
+	SQL can insert records in a database<br>
+	SQL can update records in a database<br>
+	SQL can delete records from a database<br>
+	SQL can create new databases<br>
+	SQL can create new tables in a database<br>
+	SQL can create stored procedures in a database<br>
+	SQL can create views in a database<br>
+	SQL can set permissions on tables, procedures, and views<br>
+	</p>
+	<h4>SQL is a Standard - BUT....</h4>
+	<p>Although SQL is an ANSI/ISO standard, there are different versions of the SQL language.<br>
+	However, to be compliant with the ANSI standard, they all support at least the major commands (such as SELECT, UPDATE, DELETE, INSERT, WHERE) in a similar manner.</p>
+	<h1>Using SQL in Your Web Site</h1>
+	<b>To build a web site that shows data from a database, you will need:<br>
+	An RDBMS database program (i.e. MS Access, SQL Server, MySQL)<br>
+	To use a server-side scripting language, like PHP or ASP<br>
+	To use SQL to get the data you want<br>
+	To use HTML / CSS to style the page</b>
+	<h2>RDBMS</h2>
+	<p>RDBMS stands for Relational Database Management System.<br>
+	RDBMS is the basis for SQL, and for all modern database systems such as MS SQL Server, IBM DB2, Oracle, MySQL, and Microsoft Access.<br>
+	The data in RDBMS is stored in database objects called tables. A table is a collection of related data entries and it consists of columns and rows.</p><br><br>
+	<p>Every table is broken up into smaller entities called fields. The fields in the Customers table consist of CustomerID, CustomerName, ContactName, Address, City, PostalCode and Country. A field is a column in a table that is designed to maintain specific information about every record in the table.<br>
+	A record, also called a row, is each individual entry that exists in a table. For example, there are 91 records in the above Customers table. A record is a horizontal entity in a table.<br>
+	A column is a vertical entity in a table that contains all information associated with a specific field in a table.</p>
+	<h1>SQL Syntax</h1>
+	<p>Database Tables<br>
+	A database most often contains one or more tables. Each table is identified by a name (e.g. "Customers" or "Orders"). Tables contain records (rows) with data.<br>
+	In this tutorial we will use the well-known Northwind sample database (included in MS Access and MS SQL Server).</p>
+	<h2>SQL Statements</h2>
+	<p>Most of the actions you need to perform on a database are done with SQL statements.</p>
+	<h2>Keep in Mind That...</h2>
+	<b>SQL keywords are NOT case sensitive: select is the same as SELECT</b>
+
+	<h2>Semicolon after SQL Statements?</h2>
+	<b>Some database systems require a semicolon at the end of each SQL statement.<br>
+	Semicolon is the standard way to separate each SQL statement in database systems that allow more than one SQL statement to be executed in the same call to the server.<br>
+	In this tutorial, we will use semicolon at the end of each SQL statement.</b><br><hr>
+
+	<h1>SQL DATABASE</h1>
+	<h3>SQL CREATE DATABASE Statement</h3>
+	<p>The CREATE DATABASE statement is used to create a new SQL database.<br>Syntax</p>
+	<pre>CREATE DATABASE databasename;</pre>
+	<p>The following SQL statement creates a database called "testDB":</p>
+	<pre>CREATE DATABASE testDB;</pre>
+	<p>Tip: Make sure you have admin privilege before creating any database. Once a database is created, you can check it in the list of databases with the following SQL command: SHOW DATABASES;</p>
+	<h2>SQL DROP DATABASE Statement</h2>
+	<p>The DROP DATABASE statement is used to drop an existing SQL database.<br>Syntax</p>
+	<pre>DROP DATABASE databasename;</pre>
+	<p>Note: Be careful before dropping a database. Deleting a database will result in loss of complete information stored in the database!</p>
+	<p>The following SQL statement drops the existing database "testDB":</p>
+	<pre>DROP DATABASE testDB;</pre>
+	<p>Tip: Make sure you have admin privilege before dropping any database. Once a database is dropped, you can check it in the list of databases with the following SQL command: SHOW DATABASES;</p>
+	<h2>SQL BACKUP DATABASE for SQL Server</h2>
+	<p>The BACKUP DATABASE statement is used in SQL Server to create a full back up of an existing SQL database.<br>Syntax</p>
+	<pre>BACKUP DATABASE databasename
+TO DISK = 'filepath';
+</pre>
+	<h1>The SQL BACKUP WITH DIFFERENTIAL Statement</h1>
+	<p>A differential back up only backs up the parts of the database that have changed since the last full database backup.<br>Syntax</p>
+	<pre>BACKUP DATABASE databasename
+TO DISK = 'filepath'
+WITH DIFFERENTIAL;
+</pre>
+	<p>The following SQL statement creates a full back up of the existing database "testDB" to the D disk:</p>
+	<pre>BACKUP DATABASE testDB
+TO DISK = 'D:\backups\testDB.bak';</pre>
+	<p>Tip: Always back up the database to a different drive than the actual database. Then, if you get a disk crash, you will not lose your backup file along with the database.</p>
+	<p>The following SQL statement creates a differential back up of the database "testDB":</p>
+	<pre>BACKUP DATABASE testDB
+TO DISK = 'D:\backups\testDB.bak'
+WITH DIFFERENTIAL;
+</pre>
+
+<p>Tip: A differential back up reduces the back up time (since only the changes are backed up).</p>
+
+<h2>SQL CREATE TABLE Statement</h2>
+<p>The CREATE TABLE statement is used to create a new table in a database.<br>Syntax</p>
+<pre>CREATE TABLE table_name (
+    column1 datatype,
+    column2 datatype,
+    column3 datatype,
+   ....
+);</pre>
+<p>The column parameters specify the names of the columns of the table.<br>
+The datatype parameter specifies the type of data the column can hold (e.g. varchar, integer, date, etc.).<br>Example</p>
+
+<pre>CREATE TABLE Persons (
+    PersonID int,
+    LastName varchar(255),
+    FirstName varchar(255),
+    Address varchar(255),
+    City varchar(255)
+);</pre>
+
+<p>The PersonID column is of type int and will hold an integer.<br>
+The LastName, FirstName, Address, and City columns are of type varchar and will hold characters, and the maximum length for these fields is 255 characters.<br>
+The empty "Persons" table will now look like this:</p>
+<img src="..\SQL\Images\createtableempty.png">
+<h3>Create Table Using Another Table</h3>
+<p>A copy of an existing table can also be created using CREATE TABLE.<br>
+The new table gets the same column definitions. All columns or specific columns can be selected.<br>
+If you create a new table using an existing table, the new table will be filled with the existing values from the old table.<br>Syntax</p>
+<pre>CREATE TABLE new_table_name AS
+    SELECT column1, column2,...
+    FROM existing_table_name
+    WHERE ....;
+</pre>
+<p>The following SQL creates a new table called "TestTables" (which is a copy of the "Customers" table):</p>
+<pre>CREATE TABLE TestTable AS
+SELECT customername, contactname
+FROM customers;</pre>
+<h2>SQL DROP TABLE Statement</h2>
+<p>The DROP TABLE statement is used to drop an existing table in a database.<br>Syntax</p>
+<pre>DROP TABLE table_name;</pre>
+<p>Note: Be careful before dropping a table. Deleting a table will result in loss of complete information stored in the table!<br>Example</p>
+<pre>DROP TABLE Shippers;</pre>
+<h5>SQL TRUNCATE TABLE</h5>
+<p>The TRUNCATE TABLE statement is used to delete the data inside a table, but not the table itself.<br>Syntax</p>
+<pre>TRUNCATE TABLE table_name;</pre>
+<h1>SQL ALTER TABLE Statement</h1>
+<p>The ALTER TABLE statement is used to add, delete, or modify columns in an existing table.<br>
+The ALTER TABLE statement is also used to add and drop various constraints on an existing table.</p>
+<h3>ALTER TABLE - ADD Column</h3>
+<p>Syntax</p>
+<pre>ALTER TABLE table_name
+ADD column_name datatype;</pre>
+<p>The following SQL adds an "Email" column to the "Customers" table:</p>
+<pre>ALTER TABLE Customers
+ADD Email varchar(255);
+</pre>
+<h3>ALTER TABLE - DROP COLUMN</h3>
+<p>To delete a column in a table, use the following syntax (notice that some database systems don't allow deleting a column):</p>
+<pre>ALTER TABLE table_name
+DROP COLUMN column_name;
+</pre>
+<p>The following SQL deletes the "Email" column from the "Customers" table:<br>Example</p>
+<pre>ALTER TABLE Customers
+DROP COLUMN Email;
+</pre>
+<h3>ALTER TABLE - ALTER/MODIFY COLUMN</h3>
+
+<p>To change the data type of a column in a table, use the following syntax:</p>
+<b>SQL Server / MS Access:</b>
+<pre>ALTER TABLE table_name
+ALTER COLUMN column_name datatype;</pre>
+<b>My SQL / Oracle (prior version 10G):</b>
+<pre>ALTER TABLE table_name
+MODIFY COLUMN column_name datatype;
+</pre>
+<b>Oracle 10G and later:</b>
+<pre>ALTER TABLE table_name
+MODIFY column_name datatype;
+</pre>
+<p>Now we want to add a column named "DateOfBirth" in the "Persons" table.</p>
+<pre>ALTER TABLE Persons
+ADD DateOfBirth date;</pre>
+<p>the new column, "DateOfBirth", is of type date and is going to hold a date. The data type specifies what type of data the column can hold.</p>
+<h3>Change Data Type Example</h3>
+<p>Now we want to change the data type of the column named "DateOfBirth" in the "Persons" table.</p>
+<pre>ALTER TABLE Persons
+ALTER COLUMN DateOfBirth year;
+</pre>
+<p>Notice that the "DateOfBirth" column is now of type year and is going to hold a year in a two- or four-digit format.</p>
+<h4>DROP COLUMN Example</h4>
+<p>Next, we want to delete the column named "DateOfBirth" in the "Persons" table.</p>
+<pre>ALTER TABLE Persons
+DROP COLUMN DateOfBirth;
+</pre>
+<h1>SQL Constraints</h1>
+<p>SQL constraints are used to specify rules for data in a table.</p>
+<h4>SQL Create Constraints</h4>
+<p>Constraints can be specified when the table is created with the CREATE TABLE statement, or after the table is created with the ALTER TABLE statement.<br>Syntax</p>
+<pre>CREATE TABLE table_name (
+    column1 datatype constraint,
+    column2 datatype constraint,
+    column3 datatype constraint,
+    ....
+);
+</pre>
+<p>Constraints are used to limit the type of data that can go into a table. This ensures the accuracy and reliability of the data in the table. If there is any violation between the constraint and the data action, the action is aborted.<br>
+Constraints can be column level or table level. Column level constraints apply to a column, and table level constraints apply to the whole table.</p>
+<h2>SQL NOT NULL Constraint</h2>
+<p>By default, a column can hold NULL values.<br>
+The NOT NULL constraint enforces a column to NOT accept NULL values.<br>
+This enforces a field to always contain a value, which means that you cannot insert a new record, or update a record without adding a value to this field.</p>
+<p>The following SQL ensures that the "ID", "LastName", and "FirstName" columns will NOT accept NULL values when the "Persons" table is created:<br>Example</p>
+<pre>CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255) NOT NULL,
+    Age int
+);
+</pre>
+<h6>SQL NOT NULL on ALTER TABLE</h6>
+<p>To create a NOT NULL constraint on the "Age" column when the "Persons" table is already created, use the following SQL:</p>
+<pre>ALTER TABLE Persons
+MODIFY Age int NOT NULL;
+</pre>
+<h2>SQL UNIQUE Constraint</h2>
+<p>The UNIQUE constraint ensures that all values in a column are different.<br>
+Both the UNIQUE and PRIMARY KEY constraints provide a guarantee for uniqueness for a column or set of columns.<br>
+A PRIMARY KEY constraint automatically has a UNIQUE constraint.<br>
+<b>However, you can have many UNIQUE constraints per table, but only one PRIMARY KEY constraint per table.</b></p>
+<p>The following SQL creates a UNIQUE constraint on the "ID" column when the "Persons" table is created:</p>
+<b>SQL Server / Oracle / MS Access:</b>
+<pre>CREATE TABLE Persons (
+    ID int NOT NULL UNIQUE,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int
+);
+</pre>
+<b>MySQL:</b>
+<pre>CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int,
+    UNIQUE (ID)
+);
+</pre>
+<p>To name a UNIQUE constraint, and to define a UNIQUE constraint on multiple columns, use the following SQL syntax:</p>
+<b>MySQL / SQL Server / Oracle / MS Access:</b>
+<pre>CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int,
+    CONSTRAINT UC_Person UNIQUE (ID,LastName)
+);
+</pre>
+<h5>SQL UNIQUE Constraint on ALTER TABLE</h5>
+<p>To create a UNIQUE constraint on the "ID" column when the table is already created, use the following SQL:</p>
+<b>MySQL / SQL Server / Oracle / MS Access:</b>
+<pre>ALTER TABLE Persons
+ADD UNIQUE (ID);
+</pre>
+<p>To name a UNIQUE constraint, and to define a UNIQUE constraint on multiple columns, use the following SQL syntax:</p>
+<b>MySQL / SQL Server / Oracle / MS Access:</b>
+<pre>ALTER TABLE Persons
+ADD CONSTRAINT UC_Person UNIQUE (ID,LastName);
+</pre>
+<h1>NOT EXECUTED MULTIPLE COLUMNS UNIQUE</h1>
+<h5>DROP a UNIQUE Constraint</h5>
+<p>To drop a UNIQUE constraint, use the following SQL:</p>
+<b>MySQL:</b>
+<pre>ALTER TABLE Persons
+DROP INDEX UC_Person;
+</pre>
+<b>SQL Server / Oracle / MS Access:</b>
+<pre>ALTER TABLE Persons
+DROP CONSTRAINT UC_Person;
+</pre>
+<h2>SQL PRIMARY KEY Constraint</h2>
+<p>The PRIMARY KEY constraint uniquely identifies each record in a table.<br>
+Primary keys must contain UNIQUE values, and cannot contain NULL values.<br>
+A table can have only ONE primary key; and in the table, this primary key can consist of single or multiple columns (fields).</p>
+<p>The following SQL creates a PRIMARY KEY on the "ID" column when the "Persons" table is created:</p>
+<b>MySQL:</b>
+<pre>CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int,
+    PRIMARY KEY (ID)
+);
+</pre>
+<b>SQL Server / Oracle / MS Access:</b>
+<pre>CREATE TABLE Persons (
+    ID int NOT NULL PRIMARY KEY,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int
+);
+</pre>
+<p>To allow naming of a PRIMARY KEY constraint, and for defining a PRIMARY KEY constraint on multiple columns, use the following SQL syntax:</p>
+<b>MySQL / SQL Server / Oracle / MS Access:</b>
+<pre>CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int,
+    CONSTRAINT PK_Person PRIMARY KEY (ID,LastName)
+);</pre>
+<p>Note: In the example above there is only ONE PRIMARY KEY (PK_Person). However, the VALUE of the primary key is made up of TWO COLUMNS (ID + LastName).
+</p>
+<h5>Note: In the example above there is only ONE PRIMARY KEY (PK_Person). However, the VALUE of the primary key is made up of TWO COLUMNS (ID + LastName).
+</h5>
+<p>To create a PRIMARY KEY constraint on the "ID" column when the table is already created, use the following SQL:</p>
+<b>MySQL / SQL Server / Oracle / MS Access:</b>
+<pre>ALTER TABLE Persons
+ADD PRIMARY KEY (ID);
+</pre>
+<p>To allow naming of a PRIMARY KEY constraint, and for defining a PRIMARY KEY constraint on multiple columns, use the following SQL syntax:</p>
+<b>MySQL / SQL Server / Oracle / MS Access:</b>
+<pre>ALTER TABLE Persons
+ADD CONSTRAINT PK_Person PRIMARY KEY (ID,LastName);
+</pre>
+<p>Note: If you use ALTER TABLE to add a primary key, the primary key column(s) must have been declared to not contain NULL values (when the table was first created).</p>
+<h5>DROP a PRIMARY KEY Constraint</h5>
+<p>To drop a PRIMARY KEY constraint, use the following SQL:</p>
+<b>MySQL:</b>
+<pre>ALTER TABLE Persons
+DROP PRIMARY KEY;
+</pre>
+<b>SQL Server / Oracle / MS Access:</b>
+<pre>ALTER TABLE Persons
+DROP CONSTRAINT PK_Person;
+</pre>
+<h2>SQL FOREIGN KEY Constraint</h2>
+<p>The FOREIGN KEY constraint is used to prevent actions that would destroy links between tables.<br>
+A FOREIGN KEY is a field (or collection of fields) in one table, that refers to the PRIMARY KEY in another table.<br>
+The table with the foreign key is called the child table, and the table with the primary key is called the referenced or parent table.</p>
+<img src="..\SQL\Images\Foriegnkeytable.png">
+<p>Notice that the "PersonID" column in the "Orders" table points to the "PersonID" column in the "Persons" table.<br>
+The "PersonID" column in the "Persons" table is the PRIMARY KEY in the "Persons" table.<br>
+The "PersonID" column in the "Orders" table is a FOREIGN KEY in the "Orders" table.<br>
+The FOREIGN KEY constraint prevents invalid data from being inserted into the foreign key column, because it has to be one of the values contained in the parent table.</p>
+<h4>SQL FOREIGN KEY on CREATE TABLE</h4>
+<b>MySQL:</b>
+<pre>CREATE TABLE Orders (
+    OrderID int NOT NULL,
+    OrderNumber int NOT NULL,
+    PersonID int,
+    PRIMARY KEY (OrderID),
+    FOREIGN KEY (PersonID) REFERENCES Persons(PersonID)
+);
+</pre>
+<b>SQL Server / Oracle / MS Access:</b>
+<pre>CREATE TABLE Orders (
+    OrderID int NOT NULL PRIMARY KEY,
+    OrderNumber int NOT NULL,
+    PersonID int FOREIGN KEY REFERENCES Persons(PersonID)
+);
+</pre>
+<p>To allow naming of a FOREIGN KEY constraint, and for defining a FOREIGN KEY constraint on multiple columns, use the following SQL syntax:</p>
+<b>MySQL / SQL Server / Oracle / MS Access:</b>
+<pre>CREATE TABLE Orders (
+    OrderID int NOT NULL,
+    OrderNumber int NOT NULL,
+    PersonID int,
+    PRIMARY KEY (OrderID),
+    CONSTRAINT FK_PersonOrder FOREIGN KEY (PersonID)
+    REFERENCES Persons(PersonID)
+);</pre>
+<h1>NOT EXECUTED FORIEGN KEY ON MULTIPLE COLUMNS</h1>
+<h4>SQL FOREIGN KEY on ALTER TABLE</h4>
+<p>To create a FOREIGN KEY constraint on the "PersonID" column when the "Orders" table is already created, use the following SQL:</p>
+<b>MySQL / SQL Server / Oracle / MS Access:</b>
+<pre>ALTER TABLE Orders
+ADD FOREIGN KEY (PersonID) REFERENCES Persons(PersonID);</pre>
+<p>To allow naming of a FOREIGN KEY constraint, and for defining a FOREIGN KEY constraint on multiple columns, use the following SQL syntax:</p>
+<b>MySQL / SQL Server / Oracle / MS Access:</b>
+<pre>ALTER TABLE Orders
+ADD CONSTRAINT FK_PersonOrder
+FOREIGN KEY (PersonID) REFERENCES Persons(PersonID);</pre>
+<h5>DROP a FOREIGN KEY Constraint</h5>
+<b>MySQL:</b>
+<pre>ALTER TABLE Orders
+DROP FOREIGN KEY FK_PersonOrder;
+</pre>
+<b>SQL Server / Oracle / MS Access:</b>
+<p>ALTER TABLE Orders
+DROP CONSTRAINT FK_PersonOrder;
+</p>
+<h1>SQL CHECK Constraint</h1>
+<p>The CHECK constraint is used to limit the value range that can be placed in a column.<br>
+If you define a CHECK constraint on a column it will allow only certain values for this column.<br>
+If you define a CHECK constraint on a table it can limit the values in certain columns based on values in other columns in the row.</p>
+<h4>SQL CHECK on CREATE TABLE</h4>
+<p>The following SQL creates a CHECK constraint on the "Age" column when the "Persons" table is created. The CHECK constraint ensures that the age of a person must be 18, or older:</p>
+<b>MySQL:</b>
+<pre>CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int,
+    CHECK (Age>=18)
+);
+</pre>
+<b>SQL Server / Oracle / MS Access:</b>
+<pre>CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int CHECK (Age>=18)
+);
+</pre>
+<p>To allow naming of a CHECK constraint, and for defining a CHECK constraint on multiple columns, use the following SQL syntax:</p>
+<b>MySQL / SQL Server / Oracle / MS Access:</b>
+<pre>CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int,
+    City varchar(255),
+    CONSTRAINT CHK_Person CHECK (Age>=18 AND City='Sandnes')
+);
+</pre>
+<h4>SQL CHECK on ALTER TABLE</h4>
+<p>To create a CHECK constraint on the "Age" column when the table is already created, use the following SQL:</p>
+<b>MySQL / SQL Server / Oracle / MS Access:</b>
+<pre>ALTER TABLE Persons
+ADD CHECK (Age>=18);
+</pre>
+<p>To allow naming of a CHECK constraint, and for defining a CHECK constraint on multiple columns, use the following SQL syntax:
+</p>
+<b>MySQL / SQL Server / Oracle / MS Access:</b>
+<pre>ALTER TABLE Persons
+ADD CONSTRAINT CHK_PersonAge CHECK (Age>=18 AND City='Sandnes');
+</pre>
+<h4>DROP a CHECK Constraint</h4>
+<p>To drop a CHECK constraint, use the following SQL:</p>
+<b>SQL Server / Oracle / MS Access:</b>
+<pre>ALTER TABLE Persons
+DROP CONSTRAINT CHK_PersonAge;
+</pre>
+<b>MySQL:</b>
+<pre>ALTER TABLE Persons
+DROP CHECK CHK_PersonAge;
+</pre>
+<h2>SQL DEFAULT Constraint</h2>
+<p>The DEFAULT constraint is used to set a default value for a column.<br>
+The default value will be added to all new records, if no other value is specified.</p>
+<h4>SQL DEFAULT on CREATE TABLE</h4>
+<p>The following SQL sets a DEFAULT value for the "City" column when the "Persons" table is created:</p>
+<b>My SQL / SQL Server / Oracle / MS Access:</b>
+<pre>CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int,
+    City varchar(255) DEFAULT 'Sandnes'
+);</pre>
+<p>The DEFAULT constraint can also be used to insert system values, by using functions like GETDATE():</p>
+<pre>CREATE TABLE Orders (
+    ID int NOT NULL,
+    OrderNumber int NOT NULL,
+    OrderDate date DEFAULT GETDATE()
+);</pre>
+<h4>SQL DEFAULT on ALTER TABLE</h4>
+<p>To create a DEFAULT constraint on the "City" column when the table is already created, use the following SQL:</p>
+<b>MySQL:</b>
+<pre>ALTER TABLE Persons
+ALTER City SET DEFAULT 'Sandnes';
+</pre>
+<b>SQL Server:</b>
+<pre>ALTER TABLE Persons
+ADD CONSTRAINT df_City
+DEFAULT 'Sandnes' FOR City;
+</pre>
+<b>MS Access:</b>
+<pre>ALTER TABLE Persons
+ALTER COLUMN City SET DEFAULT 'Sandnes';
+</pre>
+<b>Oracle:</b>
+<pre>ALTER TABLE Persons
+MODIFY City DEFAULT 'Sandnes';
+</pre>
+<h4>DROP a DEFAULT Constraint</h4>
+<p>To drop a DEFAULT constraint, use the following SQL:</p>
+<b>MySQL:</b>
+<pre>ALTER TABLE Persons
+ALTER City DROP DEFAULT;
+</pre>
+<b>SQL Server / Oracle / MS Access:</b>
+<pre>ALTER TABLE Persons
+ALTER COLUMN City DROP DEFAULT;
+</pre>
+<h2>SQL CREATE INDEX Statement</h2>
+<p>The CREATE INDEX statement is used to create indexes in tables.<br>
+Indexes are used to retrieve data from the database more quickly than otherwise. The users cannot see the indexes, they are just used to speed up searches/queries.<br>
+Note: Updating a table with indexes takes more time than updating a table without (because the indexes also need an update). So, only create indexes on columns that will be frequently searched against.</p>
+<h5>CREATE INDEX Syntax</h5>
+<p>Creates an index on a table. Duplicate values are allowed:</p>
+<pre>CREATE INDEX index_name
+ON table_name (column1, column2, ...);
+</pre>
+<h5>CREATE UNIQUE INDEX Syntax</h5>
+<p>Creates a unique index on a table. Duplicate values are not allowed:</p>
+<pre>CREATE UNIQUE INDEX index_name
+ON table_name (column1, column2, ...);
+</pre>
+<p>Note: The syntax for creating indexes varies among different databases. Therefore: Check the syntax for creating indexes in your database.</p>
+<h4>CREATE INDEX Example</h4>
+<p>The SQL statement below creates an index named "idx_lastname" on the "LastName" column in the "Persons" table:</p>
+<pre>CREATE INDEX idx_lastname
+ON Persons (LastName);
+</pre>
+<p>If you want to create an index on a combination of columns, you can list the column names within the parentheses, separated by commas:</p>
+<pre>CREATE INDEX idx_pname
+ON Persons (LastName, FirstName);
+</pre>
+<h4>DROP INDEX Statement</h4>
+<p>The DROP INDEX statement is used to delete an index in a table.</p>
+<b>MS Access:</b>
+<pre>DROP INDEX index_name ON table_name;</pre>
+<b>SQL Server:</b>
+<pre>DROP INDEX table_name.index_name;</pre>
+<b>DB2/Oracle:</b>
+<pre>DROP INDEX index_name;</pre>
+<b>MySQL:</b>
+<pre>ALTER TABLE table_name
+DROP INDEX index_name;
+</pre>
+
+<h2>SQL AUTO INCREMENT Field</h2>
+<p>Auto-increment allows a unique number to be generated automatically when a new record is inserted into a table.<br>
+Often this is the primary key field that we would like to be created automatically every time a new record is inserted.</p>
+<b>Syntax for MySQL</b>
+<pre>CREATE TABLE Persons (
+    Personid int NOT NULL AUTO_INCREMENT,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int,
+    PRIMARY KEY (Personid)
+);</pre>
+
+<p>MySQL uses the AUTO_INCREMENT keyword to perform an auto-increment feature.<br>
+By default, the starting value for AUTO_INCREMENT is 1, and it will increment by 1 for each new record.</p>
+<p>To let the AUTO_INCREMENT sequence start with another value, use the following SQL statement:</p>
+<pre>ALTER TABLE Persons AUTO_INCREMENT=100;</pre>
+
+<h2>SQL Working With Dates</h2>
+<p>The most difficult part when working with dates is to be sure that the format of the date you are trying to insert, matches the format of the date column in the database.</p>
+<p>As long as your data contains only the date portion, your queries will work as expected. However, if a time portion is involved, it gets more complicated.</p>
+<p>SQL Date Data Types<br>
+MySQL comes with the following data types for storing a date or a date/time value in the database:<br>
+DATE - format YYYY-MM-DD<br>
+DATETIME - format: YYYY-MM-DD HH:MI:SS<br>
+TIMESTAMP - format: YYYY-MM-DD HH:MI:SS<br>
+YEAR - format YYYY or YY</p>
+<p>Now we want to select the records with an OrderDate of "2008-11-11" from the table above.</p>
+<pre>SELECT * FROM Orders WHERE OrderDate='2008-11-11'</pre>
+<p>Tip: To keep your queries simple and easy to maintain, do not use time-components in your dates, unless you have to!</p>
+
+<h2>SQL Views</h2>
+<p>SQL CREATE VIEW Statement</p>
+<p>In SQL, a view is a virtual table based on the result-set of an SQL statement.<br>
+A view contains rows and columns, just like a real table. The fields in a view are fields from one or more real tables in the database.<br>
+You can add SQL statements and functions to a view and present the data as if the data were coming from one single table.<br>Syntax</p>
+<pre>CREATE VIEW view_name AS
+SELECT column1, column2, ...
+FROM table_name
+WHERE condition;
+</pre>
+<p>EXAMPLE</p>
+<pre>CREATE VIEW [Brazil Customers] AS
+SELECT CustomerName, ContactName
+FROM Customers
+WHERE Country = 'Brazil';
+</pre>
+<p>We can query the view above as follows:</p>
+<pre>SELECT * FROM [Brazil Customers];</pre>
+<p>The following SQL creates a view that selects every product in the "Products" table with a price higher than the average price:</p>
+<b>Example</b>
+<pre>CREATE VIEW [Products Above Average Price] AS
+SELECT ProductName, Price
+FROM Products
+WHERE Price > (SELECT AVG(Price) FROM Products);
+</pre>
+<h4>SQL Updating a View</h4>
+<b>SQL CREATE OR REPLACE VIEW Syntax</b>
+<pre>CREATE OR REPLACE VIEW view_name AS
+SELECT column1, column2, ...
+FROM table_name
+WHERE condition;
+</pre>
+<b>Example</b>
+<pre>CREATE OR REPLACE VIEW [Brazil Customers] AS
+SELECT CustomerName, ContactName, City
+FROM Customers
+WHERE Country = 'Brazil';
+</pre>
+<h5>SQL Dropping a View</h5>
+<b>Syntax</b>
+<pre>DROP VIEW view_name;</pre>
+<b>EXAMPLE</b>
+<pre>DROP VIEW [Brazil Customers];</pre>
+
+<h2>SQL Injection</h2>
+<p>SQL injection is a code injection technique that might destroy your database.<br>
+SQL injection is one of the most common web hacking techniques.<br>
+SQL injection is the placement of malicious code in SQL statements, via web page input.</p>
+<a href="https://www.w3schools.com/sql/sql_injection.asp" style="text-decoration: none;">SQL INJECTION LINK</a>
+
+<h2>SQL Hosting</h2>
+<p>If you want your web site to be able to store and retrieve data from a database, your web server should have access to a database-system that uses the SQL language.<br>
+If your web server is hosted by an Internet Service Provider (ISP), you will have to look for SQL hosting plans.<br>
+The most common SQL hosting databases are MS SQL Server, Oracle, MySQL, and MS Access.</p>
+
+<h2>SQL Data Types for MySQL</h2>
+<p>The data type of a column defines what value the column can hold: integer, character, money, date and time, binary, and so on.</p>
+<p>In MySQL there are three main data types: string, numeric, and date and time.<br>
+String Data Types
+</p>
+<table style="border: 1px solid #123456;">
+	<thead>
+		<tr>
+			<td>Data type</td>
+			<td>Description</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>CHAR(size)</td>
+			<td>A FIXED length string (can contain letters, numbers, and special characters). The size parameter specifies the column length in characters - can be from 0 to 255. Default is 1</td>
+		</tr>
+		<tr>
+			<td>VARCHAR(size)</td>
+			<td>A VARIABLE length string (can contain letters, numbers, and special characters). The size parameter specifies the maximum column length in characters - can be from 0 to 65535</td>
+		</tr>
+		<tr>
+			<td>BINARY(size)</td>
+			<td>Equal to CHAR(), but stores binary byte strings. The size parameter specifies the column length in bytes. Default is 1</td>
+		</tr>
+		<tr>
+			<td>VARBINARY(size)</td>
+			<td>Equal to VARCHAR(), but stores binary byte strings. The size parameter specifies the maximum column length in bytes.</td>
+		</tr>
+		<tr>
+			<td>TINYBLOB</td>
+			<td>For BLOBs (Binary Large Objects). Max length: 255 bytes</td>
+		</tr>
+		<tr>
+			<td>TINYTEXT</td>
+			<td>Holds a string with a maximum length of 255 characters</td>
+		</tr>
+		<tr>
+			<td>TEXT(size)</td>
+			<td>Holds a string with a maximum length of 65,535 bytes</td>
+		</tr>
+		<tr>
+			<td>BLOB(size)</td>
+			<td>For BLOBs (Binary Large Objects). Holds up to 65,535 bytes of data</td>
+		</tr>
+		<tr>
+			<td>MEDIUMTEXT</td>
+			<td>Holds a string with a maximum length of 16,777,215 characters</td>
+		</tr>
+		<tr>
+			<td>MEDIUMBLOB</td>
+			<td>For BLOBs (Binary Large Objects). Holds up to 16,777,215 bytes of data</td>
+		</tr>
+		<tr>
+			<td>LONGTEXT</td>
+			<td>Holds a string with a maximum length of 4,294,967,295 characters</td>
+		</tr>
+		<tr>
+			<td>LONGBLOB</td>
+			<td>For BLOBs (Binary Large Objects). Holds up to 4,294,967,295 bytes of data</td>
+		</tr>
+		<tr>
+			<td>ENUM(val1, val2, val3, ...)</td>
+			<td>A string object that can have only one value, chosen from a list of possible values. You can list up to 65535 values in an ENUM list. If a value is inserted that is not in the list, a blank value will be inserted. The values are sorted in the order you enter them</td>
+		</tr>
+		<tr>
+			<td>SET(val1, val2, val3, ...)</td>
+			<td>A string object that can have 0 or more values, chosen from a list of possible values. You can list up to 64 values in a SET list</td>
+		</tr>
+	</tbody>
+</table>
+<h5>Numeric Data Types</h5>
+<table style="border: 1px solid #123456;">
+	<thead>
+		<tr>
+			<td>Data Type</td>
+			<td>Description</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>BIT(size)</td>
+			<td>A bit-value type. The number of bits per value is specified in size. The size parameter can hold a value from 1 to 64. The default value for size is 1.</td>
+		</tr>
+		<tr>
+			<td>TINYINT(size)</td>
+			<td>A very small integer. Signed range is from -128 to 127. Unsigned range is from 0 to 255. The size parameter specifies the maximum display width (which is 255)</td>
+		</tr>
+		<tr>
+			<td>BOOL</td>
+			<td>Zero is considered as false, nonzero values are considered as true.</td>
+		</tr>
+		<tr>
+			<td>BOOLEAN</td>
+			<td>Equal to BOOL</td>
+		</tr>
+		<tr>
+			<td>SMALLINT(size)</td>
+			<td>A small integer. Signed range is from -32768 to 32767. Unsigned range is from 0 to 65535. The size parameter specifies the maximum display width (which is 255)</td>
+		</tr>
+		<tr>
+			<td>MEDIUMINT(size)</td>
+			<td>A medium integer. Signed range is from -8388608 to 8388607. Unsigned range is from 0 to 16777215. The size parameter specifies the maximum display width (which is 255)</td>
+		</tr>
+		<tr>
+			<td>INT(size)</td>
+			<td>A medium integer. Signed range is from -2147483648 to 2147483647. Unsigned range is from 0 to 4294967295. The size parameter specifies the maximum display width (which is 255)</td>
+		</tr>
+		<tr>
+			<td>INTEGER(size)</td>
+			<td>Equal to INT(size)</td>
+		</tr>
+		<tr>
+			<td>BIGINT(size)</td>
+			<td>A large integer. Signed range is from -9223372036854775808 to 9223372036854775807. Unsigned range is from 0 to 18446744073709551615. The size parameter specifies the maximum display width (which is 255)</td>
+		</tr>
+		<tr>
+			<td>FLOAT(size, d)</td>
+			<td>A floating point number. The total number of digits is specified in size. The number of digits after the decimal point is specified in the d parameter. This syntax is deprecated in MySQL 8.0.17, and it will be removed in future MySQL versions</td>
+		</tr>
+		<tr>
+			<td>FLOAT(p)</td>
+			<td>A floating point number. MySQL uses the p value to determine whether to use FLOAT or DOUBLE for the resulting data type. If p is from 0 to 24, the data type becomes FLOAT(). If p is from 25 to 53, the data type becomes DOUBLE()</td>
+		</tr>
+		<tr>
+			<td>DOUBLE(size, d)</td>
+			<td>A normal-size floating point number. The total number of digits is specified in size. The number of digits after the decimal point is specified in the d parameter</td>
+		</tr>
+		<tr>
+			<td>DOUBLE PRECISION(size, d)</td>
+			<td> </td>
+		</tr>
+		<tr>
+			<td>DECIMAL(size, d)</td>
+			<td>An exact fixed-point number. The total number of digits is specified in size. The number of digits after the decimal point is specified in the d parameter. The maximum number for size is 65. The maximum number for d is 30. The default value for size is 10. The default value for d is 0.</td>
+		</tr>
+		<tr>
+			<td>DEC(size, d)</td>
+			<td>Equal to DECIMAL(size,d)</td>
+		</tr>
+	</tbody>
+</table>
+<p>Note: All the numeric data types may have an extra option: UNSIGNED or ZEROFILL. If you add the UNSIGNED option, MySQL disallows negative values for the column. If you add the ZEROFILL option, MySQL automatically also adds the UNSIGNED attribute to the column.</p>
+<b>Date and Time Data Types</b>
+<table style="border: 1px solid #123456;">
+	<thead>
+		<tr>
+			<td>Data Type</td>
+			<td>Description</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>DATE</td>
+			<td>A date. Format: YYYY-MM-DD. The supported range is from '1000-01-01' to '9999-12-31'</td>
+		</tr>
+		<tr>
+			<td>DATETIME(fsp)</td>
+			<td>A date and time combination. Format: YYYY-MM-DD hh:mm:ss. The supported range is from '1000-01-01 00:00:00' to '9999-12-31 23:59:59'. Adding DEFAULT and ON UPDATE in the column definition to get automatic initialization and updating to the current date and time</td>
+		</tr>
+		<tr>
+			<td>TIMESTAMP(fsp)</td>
+			<td>A timestamp. TIMESTAMP values are stored as the number of seconds since the Unix epoch ('1970-01-01 00:00:00' UTC). Format: YYYY-MM-DD hh:mm:ss. The supported range is from '1970-01-01 00:00:01' UTC to '2038-01-09 03:14:07' UTC. Automatic initialization and updating to the current date and time can be specified using DEFAULT CURRENT_TIMESTAMP and ON UPDATE CURRENT_TIMESTAMP in the column definition</td>
+		</tr>
+		<tr>
+			<td>TIME(fsp)</td>
+			<td>A time. Format: hh:mm:ss. The supported range is from '-838:59:59' to '838:59:59'</td>
+		</tr>
+		<tr>
+			<td>YEAR</td>
+			<td>A year in four-digit format. Values allowed in four-digit format: 1901 to 2155, and 0000.
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
